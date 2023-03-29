@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:dio/dio.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 // IP address
 String ipAddress = 'http://197.254.48.102:6000';
@@ -25,6 +26,10 @@ class SizeConfig {
     blockSizeVertical = screenHeight! / 100;
   }
 }
+
+// Tab controller
+PersistentTabController bottomNavigationController =
+    PersistentTabController(initialIndex: 0);
 
 ////////////////////////////////////////////////////////////////
 /// TEXT STYLES

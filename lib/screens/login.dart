@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movieto/utilities/utilities.dart';
+import 'package:movieto/screens/home/dashboard.dart';
 import 'package:movieto/screens/signup.dart';
 
 class Login extends StatefulWidget {
@@ -224,10 +225,17 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
                   ),
                   child: AnimatedButton(
                     text: 'Log In',
-                    link: '/api/login',
+                    link: null,
                     req: 'post',
                     obj: {'username': emailText, 'password': passwordText},
-                    callback: (res) async {},
+                    callback: (res) async {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Dashboard(),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],
