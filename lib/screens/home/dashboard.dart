@@ -114,6 +114,7 @@ class DashboardState extends State<Dashboard> with WidgetsBindingObserver {
               ),
               navBarStyle: NavBarStyle.style1,
               onItemSelected: (value) {
+                print(globalUserData);
                 if (value == 2) {
                   dioRequest(
                     'post',

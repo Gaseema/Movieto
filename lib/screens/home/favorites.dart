@@ -24,7 +24,6 @@ class FavoritesState extends State<Favorites> with WidgetsBindingObserver {
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
         itemCount: favoriteList.length,
-        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           final show = favoriteList[index];
           String year = '2023-12-33';

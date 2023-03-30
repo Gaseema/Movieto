@@ -50,10 +50,10 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
                 'Popular',
                 style: header5BoldTextBlack(),
               ),
-              Text(
-                'View all',
-                style: header5BoldTextBlack(),
-              ),
+              // Text(
+              //   'View all',
+              //   style: header5BoldTextBlack(),
+              // ),
             ],
           ),
           SizedBox(
@@ -111,10 +111,10 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
                 'Recommendation',
                 style: header5BoldTextBlack(),
               ),
-              Text(
-                'View all',
-                style: header5BoldTextBlack(),
-              ),
+              // Text(
+              //   'View all',
+              //   style: header5BoldTextBlack(),
+              // ),
             ],
           ),
           SizedBox(
@@ -186,10 +186,10 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
                 'Top Rated',
                 style: header5BoldTextBlack(),
               ),
-              Text(
-                'View all',
-                style: header5BoldTextBlack(),
-              ),
+              // Text(
+              //   'View all',
+              //   style: header5BoldTextBlack(),
+              // ),
             ],
           ),
           topRatedList.isEmpty

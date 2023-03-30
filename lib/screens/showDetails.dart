@@ -313,12 +313,12 @@ class ShowDetailsState extends State<ShowDetails> with WidgetsBindingObserver {
                 ),
                 casts,
                 seasons,
-                // Container(
-                //   margin: const EdgeInsets.only(
-                //     top: 20,
-                //   ),
-                //   child: storyLine,
-                // ),
+                Container(
+                  margin: const EdgeInsets.only(
+                    top: 20,
+                  ),
+                  child: storyLine,
+                ),
               ],
             ),
     );
