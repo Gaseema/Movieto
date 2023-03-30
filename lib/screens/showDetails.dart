@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:movieto/utilities/utilities.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -16,10 +18,35 @@ class ShowDetailsState extends State<ShowDetails> with WidgetsBindingObserver {
   List castList = [];
   List seasonsList = [];
 
+  bool liked = false;
+  bool favorited = false;
+
+  convertStory() {
+    try {
+      return HtmlUnescape().convert(
+        showDetails['summary'].replaceAll(RegExp('<[^>]*>'), ''),
+      );
+    } catch (e) {
+      return HtmlUnescape().convert(
+        ''.replaceAll(RegExp('<[^>]*>'), ''),
+      );
+    }
+  }
+
+  updateFavorited() {
+    dioRequest('post', '/user/show/favorite', {
+      'userID': globalUserData['_id'],
+      'favorited': favorited,
+      'show': widget.showID,
+      'showDetails': showDetails
+    }).then((val) {
+      print(val);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    print('the id is: ${widget.showID}');
     // Fetch show details
     dioRequest('get', '/shows/${widget.showID}', null).then((val) {
       setState(() {
@@ -57,11 +84,7 @@ class ShowDetailsState extends State<ShowDetails> with WidgetsBindingObserver {
             ),
           ),
           Text(
-            showDetails.isEmpty
-                ? ''
-                : HtmlUnescape().convert(
-                    showDetails['summary'].replaceAll(RegExp('<[^>]*>'), ''),
-                  ),
+            convertStory(),
           ),
         ],
       ),
@@ -137,7 +160,6 @@ class ShowDetailsState extends State<ShowDetails> with WidgetsBindingObserver {
                 itemCount: seasonsList.length,
                 itemBuilder: (context, index) {
                   final seasonsLst = seasonsList[index];
-                  print(seasonsLst);
                   return Container(
                     child: TvShowCard(
                       cardSize: 'normal',
@@ -213,9 +235,58 @@ class ShowDetailsState extends State<ShowDetails> with WidgetsBindingObserver {
                               Expanded(
                                 child: Container(),
                               ),
-                              Text(
-                                showDetails['name'],
-                                style: header6BoldTextWhite(),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    showDetails['name'],
+                                    style: header6BoldTextWhite(),
+                                  ),
+                                  Row(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            liked = !liked;
+                                          });
+                                        },
+                                        child: Container(
+                                          padding:
+                                              const EdgeInsets.only(right: 10),
+                                          child: Image.asset(
+                                            liked == false
+                                                ? 'images/icons/timer_white.png'
+                                                : 'images/icons/timer_red.png',
+                                            width: SizeConfig
+                                                    .blockSizeHorizontal! *
+                                                7,
+                                          ),
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            favorited = !favorited;
+                                          });
+                                          updateFavorited();
+                                        },
+                                        child: Container(
+                                          padding:
+                                              const EdgeInsets.only(right: 10),
+                                          child: Image.asset(
+                                            favorited == false
+                                                ? 'images/icons/heart_white.png'
+                                                : 'images/icons/heart_red.png',
+                                            width: SizeConfig
+                                                    .blockSizeHorizontal! *
+                                                7,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
                               ),
                             ],
                           ),

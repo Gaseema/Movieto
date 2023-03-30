@@ -11,6 +11,7 @@ import 'package:transparent_image/transparent_image.dart';
 // IP address
 String ipAddress = 'https://api.tvmaze.com';
 String ipAddressDB = 'http://localhost:8040';
+List favoriteList = [];
 
 // Vertical & horizontal percentage size
 class SizeConfig {
@@ -32,6 +33,8 @@ class SizeConfig {
 // Tab controller
 PersistentTabController bottomNavigationController =
     PersistentTabController(initialIndex: 0);
+
+Map globalUserData = {};
 
 ////////////////////////////////////////////////////////////////
 /// TEXT STYLES

@@ -16,8 +16,6 @@ class SearchState extends State<Search> with WidgetsBindingObserver {
 
   updateSearchResults() {
     dioRequest('get', '/search/shows?q=$searchVal', null).then((val) {
-      print('val');
-      print(val);
       setState(() {
         searchList = val;
       });
@@ -159,7 +157,24 @@ class SearchState extends State<Search> with WidgetsBindingObserver {
                   children: [
                     searchList.isEmpty
                         ? Center(
-                            child: Text('sdfasdf'),
+                            child: Column(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(
+                                    bottom: 20,
+                                    top: 20,
+                                  ),
+                                  child: Image.asset(
+                                    'images/nodata.png',
+                                    width: SizeConfig.blockSizeHorizontal! * 70,
+                                  ),
+                                ),
+                                Text(
+                                  'No data found. Enter something in the search bar',
+                                  style: normalTextBlack(),
+                                )
+                              ],
+                            ),
                           )
                         : displaySearchList
                   ],

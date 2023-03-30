@@ -114,6 +114,17 @@ class DashboardState extends State<Dashboard> with WidgetsBindingObserver {
               ),
               navBarStyle: NavBarStyle.style1,
               onItemSelected: (value) {
+                if (value == 2) {
+                  dioRequest(
+                    'post',
+                    '/user/fetch/favorites',
+                    {'userID': globalUserData['_id']},
+                  ).then((val) {
+                    setState(() {
+                      favoriteList = val['favorites'];
+                    });
+                  });
+                }
                 setState(() {
                   activePage = value;
                 });

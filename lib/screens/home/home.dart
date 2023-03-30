@@ -30,8 +30,6 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
       });
     });
     dioRequest('get', '/shows?page=9', null).then((val) {
-      print('val +++++++++++++++++');
-      print(val);
       setState(() {
         topRatedList = val;
       });

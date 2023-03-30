@@ -255,12 +255,16 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
                     req: 'post',
                     callback: (res) async {
                       if (res['isSuccessful'] == true) {
+                        setState(() {
+                          globalUserData = res['user'];
+                        });
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const Dashboard(),
                           ),
                         );
+
                         return showToast(
                           context,
                           'Successful',
