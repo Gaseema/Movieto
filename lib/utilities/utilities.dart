@@ -6,6 +6,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:dio/dio.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 // IP address
 String ipAddress = 'https://api.tvmaze.com';
@@ -474,6 +475,7 @@ class TvShowCard extends StatelessWidget {
     String year = premiered!.substring(0, 4);
     Widget card = Container(
       margin: const EdgeInsets.only(top: 20),
+      padding: EdgeInsets.only(left: 10),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: IntrinsicHeight(
@@ -484,19 +486,19 @@ class TvShowCard extends StatelessWidget {
                 width: cardSize == 'tall'
                     ? SizeConfig.blockSizeHorizontal! * 30
                     : cardSize == 'wide'
-                        ? SizeConfig.blockSizeHorizontal! * 60
+                        ? SizeConfig.blockSizeHorizontal! * 40
                         : SizeConfig.blockSizeHorizontal! * 50,
                 height: cardSize == 'tall'
                     ? SizeConfig.blockSizeVertical! * 20
                     : cardSize == 'wide'
-                        ? SizeConfig.blockSizeVertical! * 15
+                        ? SizeConfig.blockSizeVertical! * 30
                         : SizeConfig.blockSizeVertical! * 30,
                 child: Stack(
                   children: [
                     Positioned.fill(
                       child: Container(
-                        padding: const EdgeInsets.all(10.0),
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                           boxShadow: [
                             BoxShadow(
@@ -505,10 +507,12 @@ class TvShowCard extends StatelessWidget {
                               offset: Offset(0, 4),
                             ),
                           ],
-                          image: DecorationImage(
-                            image: NetworkImage(
-                              imageLink!,
-                            ),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: FadeInImage.memoryNetwork(
+                            placeholder: kTransparentImage,
+                            image: imageLink!,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -535,14 +539,20 @@ class TvShowCard extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
-                              showName!,
-                              style: normalBoldTextWhite(),
-                            ),
-                            Text(
-                              year!,
-                              style: normalTextLightWhite(),
-                            ),
+                            cardSize == 'tall'
+                                ? Container()
+                                : cardSize == 'wide'
+                                    ? Container()
+                                    : Text(
+                                        showName!,
+                                        style: normalBoldTextWhite(),
+                                      ),
+                            cardSize == 'wide'
+                                ? Container()
+                                : Text(
+                                    year,
+                                    style: normalTextLightWhite(),
+                                  ),
                             Expanded(
                               child: Container(),
                             ),
