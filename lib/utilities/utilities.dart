@@ -476,7 +476,7 @@ class TvShowCard extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    String year = premiered!.substring(0, 4);
+    String year = premiered?.substring(0, 4) ?? '2012-12-09';
     Widget card = Container(
       margin: const EdgeInsets.only(top: 20),
       padding: const EdgeInsets.only(left: 10),
@@ -516,7 +516,7 @@ class TvShowCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                           child: FadeInImage.memoryNetwork(
                             placeholder: kTransparentImage,
-                            image: imageLink!,
+                            image: imageLink ?? '',
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -564,7 +564,7 @@ class TvShowCard extends StatelessWidget {
                                 : cardSize == 'wide'
                                     ? Container()
                                     : Text(
-                                        showName!,
+                                        showName ?? '',
                                         style: normalBoldTextWhite(),
                                       ),
                             cardSize == 'wide'

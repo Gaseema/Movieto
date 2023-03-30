@@ -55,6 +55,7 @@ flutter:
 
     #Icons
     - images/icons/hide.png
+    - images/icons/sort.png
     - images/icons/home_black.png
     - images/icons/search_black.png
     - images/icons/heart_black.png

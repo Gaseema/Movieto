@@ -76,13 +76,15 @@ class DashboardState extends State<Dashboard> with WidgetsBindingObserver {
     return Scaffold(
       body: Column(
         children: [
-          CustomAppBar(
-            title: null,
-            icon: null,
-            callback: (res) {
-              Navigator.pop(context);
-            },
-          ),
+          activePage == 0
+              ? CustomAppBar(
+                  title: null,
+                  icon: null,
+                  callback: (res) {
+                    Navigator.pop(context);
+                  },
+                )
+              : Container(),
           Expanded(
             child: PersistentTabView(
               context,
