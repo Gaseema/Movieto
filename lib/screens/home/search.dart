@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movieto/utilities/utilities.dart';
 import 'package:html_unescape/html_unescape.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:movieto/screens/showDetails.dart';
 
 class Search extends StatefulWidget {
   const Search({Key? key}) : super(key: key);
@@ -43,50 +45,74 @@ class SearchState extends State<Search> with WidgetsBindingObserver {
               ? ''
               : HtmlUnescape().convert(
                   show['show']['summary'].replaceAll(RegExp('<[^>]*>'), ''));
-          return Row(
-            children: [
-              TvShowCard(
-                showID: show['show']['id'],
-                cardSize: 'normal',
-                imageLink: show['show']['image'] == null
-                    ? 'https://static.tvmaze.com/uploads/images/medium_portrait/1/3773.jpg'
-                    : show['show']['image']['medium'],
-                showName: show['show']['name'],
-                premiered: show['show']['premiered'],
-                callback: (value) {},
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      show['show']['name'],
-                      style: normalBoldTextBlack(),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 10),
-                      child: Text(
-                        '($year)',
-                        style: normalBoldTextLightBlack(),
-                      ),
-                    ),
-                    Text(
-                      'Summary',
-                      style: smallTextLightBlack(),
-                    ),
-                    Container(
-                      child: Text(
-                        summaryOutput,
-                        style: normalTextBlack(),
-                        maxLines: 8,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.left,
-                      ),
-                    ),
-                  ],
+          return GestureDetector(
+            onTap: () {
+              PersistentNavBarNavigator.pushNewScreen(
+                context,
+                screen: ShowDetails(
+                  showID: show['show']['id'],
                 ),
-              )
-            ],
+                withNavBar: false,
+                pageTransitionAnimation: PageTransitionAnimation.cupertino,
+              );
+            },
+            child: Container(
+              child: Row(
+                children: [
+                  TvShowCard(
+                    showID: show['show']['id'],
+                    cardSize: 'normal',
+                    imageLink: show['show']['image'] == null
+                        ? 'https://static.tvmaze.com/uploads/images/medium_portrait/1/3773.jpg'
+                        : show['show']['image']['medium'],
+                    showName: show['show']['name'],
+                    premiered: show['show']['premiered'],
+                    callback: (value) {
+                      PersistentNavBarNavigator.pushNewScreen(
+                        context,
+                        screen: ShowDetails(
+                          showID: show['show']['id'],
+                        ),
+                        withNavBar: false,
+                        pageTransitionAnimation:
+                            PageTransitionAnimation.cupertino,
+                      );
+                    },
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          show['show']['name'],
+                          style: normalBoldTextBlack(),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(bottom: 10),
+                          child: Text(
+                            '($year)',
+                            style: normalBoldTextLightBlack(),
+                          ),
+                        ),
+                        Text(
+                          'Summary',
+                          style: smallTextLightBlack(),
+                        ),
+                        Container(
+                          child: Text(
+                            summaryOutput,
+                            style: normalTextBlack(),
+                            maxLines: 8,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
           );
         },
       ),

@@ -139,12 +139,21 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
                       return Column(
                         children: [
                           TvShowCard(
+                            showID: show['id'],
                             cardSize: 'tall',
                             imageLink: show['image']['medium'],
                             showName: show['name'],
                             premiered: show['premiered'],
                             callback: (value) {
-                              print(value);
+                              PersistentNavBarNavigator.pushNewScreen(
+                                context,
+                                screen: ShowDetails(
+                                  showID: value,
+                                ),
+                                withNavBar: false,
+                                pageTransitionAnimation:
+                                    PageTransitionAnimation.cupertino,
+                              );
                             },
                           ),
                           Container(
@@ -208,12 +217,21 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
                     return Row(
                       children: [
                         TvShowCard(
+                          showID: show['id'],
                           cardSize: 'wide',
                           imageLink: show['image']['medium'],
                           showName: show['name'],
                           premiered: show['premiered'],
                           callback: (value) {
-                            print(value);
+                            PersistentNavBarNavigator.pushNewScreen(
+                              context,
+                              screen: ShowDetails(
+                                showID: value,
+                              ),
+                              withNavBar: false,
+                              pageTransitionAnimation:
+                                  PageTransitionAnimation.cupertino,
+                            );
                           },
                         ),
                         Expanded(

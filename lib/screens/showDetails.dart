@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:movieto/utilities/utilities.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -33,6 +31,14 @@ class ShowDetailsState extends State<ShowDetails> with WidgetsBindingObserver {
     }
   }
 
+  loadImage() {
+    try {
+      return showDetails['image']['original'];
+    } catch (e) {
+      return 'https://static.tvmaze.com/uploads/images/original_untouched/81/202627.jpg';
+    }
+  }
+
   updateFavorited() {
     dioRequest('post', '/user/show/favorite', {
       'userID': globalUserData['_id'],
@@ -63,6 +69,8 @@ class ShowDetailsState extends State<ShowDetails> with WidgetsBindingObserver {
 
     // Show seasons for the show
     dioRequest('get', '/shows/${widget.showID}/episodes', null).then((val) {
+      print('seasons =================');
+      print(val);
       setState(() {
         seasonsList = val;
       });
@@ -94,16 +102,7 @@ class ShowDetailsState extends State<ShowDetails> with WidgetsBindingObserver {
       child: SizedBox(
         height: SizeConfig.blockSizeVertical! * 8,
         child: castList.isEmpty
-            ? const Center(
-                child: SizedBox(
-                  height: 40,
-                  width: 40,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 3.5,
-                    color: Colors.blue,
-                  ),
-                ),
-              )
+            ? Container()
             : ListView.builder(
                 scrollDirection: Axis.horizontal,
                 shrinkWrap: true,
@@ -160,10 +159,27 @@ class ShowDetailsState extends State<ShowDetails> with WidgetsBindingObserver {
                 itemCount: seasonsList.length,
                 itemBuilder: (context, index) {
                   final seasonsLst = seasonsList[index];
+                  var imageLink;
+                  var showName;
+                  var premiered;
+                  var season;
+                  try {
+                    imageLink = seasonsLst['image']['medium'];
+                    showName = seasonsLst['name'];
+                    premiered = seasonsLst['airdate'];
+                    season = seasonsLst['season'];
+                  } catch (e) {
+                    imageLink =
+                        'https://static.tvmaze.com/uploads/images/original_untouched/81/202627.jpg';
+                    showName = 'Show';
+                    premiered = '2023-12-34';
+                    season = '2';
+                  }
+                  // print(seasonsLst['image']['medium']);
                   return Container(
                     child: TvShowCard(
                       cardSize: 'normal',
-                      imageLink: seasonsLst['image']['medium'],
+                      imageLink: imageLink,
                       showName: seasonsLst['name'],
                       premiered: seasonsLst['airdate'],
                       season: seasonsLst['season'],
@@ -208,7 +224,7 @@ class ShowDetailsState extends State<ShowDetails> with WidgetsBindingObserver {
                           ),
                           child: FadeInImage.memoryNetwork(
                             placeholder: kTransparentImage,
-                            image: showDetails['image']['original'],
+                            image: loadImage(),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -297,12 +313,12 @@ class ShowDetailsState extends State<ShowDetails> with WidgetsBindingObserver {
                 ),
                 casts,
                 seasons,
-                Container(
-                  margin: const EdgeInsets.only(
-                    top: 20,
-                  ),
-                  child: storyLine,
-                ),
+                // Container(
+                //   margin: const EdgeInsets.only(
+                //     top: 20,
+                //   ),
+                //   child: storyLine,
+                // ),
               ],
             ),
     );
