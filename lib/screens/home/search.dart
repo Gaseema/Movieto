@@ -51,7 +51,7 @@ class SearchState extends State<Search> with WidgetsBindingObserver {
                 showID: show['show']['id'],
                 cardSize: 'normal',
                 imageLink: show['show']['image'] == null
-                    ? ''
+                    ? 'https://static.tvmaze.com/uploads/images/medium_portrait/1/3773.jpg'
                     : show['show']['image']['medium'],
                 showName: show['show']['name'],
                 premiered: show['show']['premiered'],

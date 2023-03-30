@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movieto/utilities/utilities.dart';
 import 'package:movieto/screens/login.dart';
 import 'package:movieto/utilities/utilities.dart';
+import 'package:movieto/screens/home/dashboard.dart';
 
 class Signup extends StatefulWidget {
   const Signup({Key? key}) : super(key: key);
@@ -43,9 +44,9 @@ class SignupState extends State<Signup> with WidgetsBindingObserver {
       } else if (password.text == '') {
         signupBTNdisabled = true;
         formErrorMessage = 'Enter password';
-      } else if (password.text.length < 6) {
+      } else if (password.text.length < 4) {
         signupBTNdisabled = true;
-        formErrorMessage = 'Password must be at least 6 characters';
+        formErrorMessage = 'Password must be at least 4 characters';
       } else if (password.text != confirmPassword.text) {
         signupBTNdisabled = true;
         formErrorMessage = 'Passwords do not match';
@@ -117,7 +118,7 @@ class SignupState extends State<Signup> with WidgetsBindingObserver {
                           decoration: InputDecoration(
                             contentPadding:
                                 const EdgeInsets.fromLTRB(20, 10, 10, 10),
-                            hintText: 'Email Address',
+                            hintText: 'Enter your name',
                             filled: true,
                             fillColor: Colors.white.withOpacity(0.6),
                             border: OutlineInputBorder(
@@ -132,7 +133,7 @@ class SignupState extends State<Signup> with WidgetsBindingObserver {
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.red,
                                 width: 2.3,
                               ),
@@ -349,16 +350,38 @@ class SignupState extends State<Signup> with WidgetsBindingObserver {
                   ),
                   child: AnimatedButton(
                     text: 'Sign Up',
-                    link: '/api/register_new_client',
+                    link: '/user/signup',
                     disabled: signupBTNdisabled,
                     error: formErrorMessage,
                     obj: {
                       "username": username.text,
-                      "email_address": email.text,
+                      "email": email.text,
                       "password": password.text,
                     },
                     req: 'post',
-                    callback: (res) async {},
+                    callback: (res) async {
+                      if (res['isSuccessful'] == true) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Dashboard(),
+                          ),
+                        );
+                        return showToast(
+                          context,
+                          'Successful',
+                          'Successfully signed up',
+                          Colors.green,
+                        );
+                      } else {
+                        return showToast(
+                          context,
+                          'Error!!!',
+                          '${res['error']}',
+                          Colors.red,
+                        );
+                      }
+                    },
                   ),
                 ),
                 GestureDetector(

@@ -17,10 +17,28 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
   bool hidePassword = true;
   String? emailText;
   String? passwordText;
+  bool signupBTNdisabled = true;
+  String? formErrorMessage;
+
+  // Check if all inputs are filled
+  checkInputs() async {
+    setState(() {
+      if (email.text == '') {
+        signupBTNdisabled = true;
+        formErrorMessage = 'Enter email address';
+      } else if (password.text == '') {
+        signupBTNdisabled = true;
+        formErrorMessage = 'Enter password';
+      } else {
+        signupBTNdisabled = false;
+      }
+    });
+  }
 
   @override
   void initState() {
     super.initState();
+    checkInputs();
   }
 
   @override
@@ -84,6 +102,7 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
                             setState(() {
                               emailText = text;
                             });
+                            checkInputs();
                           },
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
@@ -141,6 +160,7 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
                             setState(() {
                               passwordText = text;
                             });
+                            checkInputs();
                           },
                           keyboardType: TextInputType.text,
                           obscureText: hidePassword,
@@ -224,17 +244,37 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
                     top: SizeConfig.blockSizeVertical! * 5,
                   ),
                   child: AnimatedButton(
-                    text: 'Log In',
-                    link: null,
+                    text: 'Log in',
+                    link: '/user/login',
+                    disabled: signupBTNdisabled,
+                    error: formErrorMessage,
+                    obj: {
+                      "email": email.text,
+                      "password": password.text,
+                    },
                     req: 'post',
-                    obj: {'username': emailText, 'password': passwordText},
                     callback: (res) async {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Dashboard(),
-                        ),
-                      );
+                      if (res['isSuccessful'] == true) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Dashboard(),
+                          ),
+                        );
+                        return showToast(
+                          context,
+                          'Successful',
+                          'Successfully logged in',
+                          Colors.green,
+                        );
+                      } else {
+                        return showToast(
+                          context,
+                          'Error!!!',
+                          '${res['error']}',
+                          Colors.red,
+                        );
+                      }
                     },
                   ),
                 ),

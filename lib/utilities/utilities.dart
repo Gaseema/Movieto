@@ -10,6 +10,7 @@ import 'package:transparent_image/transparent_image.dart';
 
 // IP address
 String ipAddress = 'https://api.tvmaze.com';
+String ipAddressDB = 'http://localhost:8040';
 
 // Vertical & horizontal percentage size
 class SizeConfig {
@@ -651,7 +652,7 @@ getHttp(link, data) async {
 postHttp(link, data) async {
   try {
     Dio dio = Dio();
-    var response = await dio.post(ipAddress + link, data: data);
+    var response = await dio.post(ipAddressDB + link, data: data);
     return response.data;
   } on DioError catch (e) {
     print('Error with post request');

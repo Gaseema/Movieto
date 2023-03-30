@@ -30,6 +30,8 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
       });
     });
     dioRequest('get', '/shows?page=9', null).then((val) {
+      print('val +++++++++++++++++');
+      print(val);
       setState(() {
         topRatedList = val;
       });
@@ -72,7 +74,7 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
                 : ListView.builder(
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
-                    itemCount: popularList.length,
+                    itemCount: 10,
                     itemBuilder: (context, index) {
                       final show = popularList[index];
                       return TvShowCard(
@@ -133,7 +135,7 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
                 : ListView.builder(
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
-                    itemCount: popularList.length,
+                    itemCount: 10,
                     itemBuilder: (context, index) {
                       final show = popularList[index];
                       return Column(
@@ -198,7 +200,7 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: popularList.length,
+                  itemCount: 10,
                   itemBuilder: (context, index) {
                     final show = popularList[index];
                     String year = show['premiered'].substring(0, 4) ?? '';
