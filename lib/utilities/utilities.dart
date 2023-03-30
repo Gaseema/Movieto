@@ -8,7 +8,7 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 // IP address
-String ipAddress = 'http://197.254.48.102:6000';
+String ipAddress = 'https://api.tvmaze.com';
 
 // Vertical & horizontal percentage size
 class SizeConfig {
@@ -385,7 +385,7 @@ class CustomAppBar extends StatelessWidget {
       backgroundColor: backgroundColor ?? Colors.transparent,
       elevation: 0,
       title: Text(
-        '$title',
+        title == null ? '' : '$title',
         style: textColor == 'white'
             ? header6BoldTextWhite()
             : header6BoldTextBlack(),
@@ -456,6 +456,118 @@ class MessageNotification extends StatelessWidget {
   }
 }
 
+class TvShowCard extends StatelessWidget {
+  final String? cardSize;
+  final String? imageLink;
+  final String? showName;
+  final String? premiered;
+  final ValueSetter<dynamic>? callback;
+  TvShowCard({
+    @required this.cardSize,
+    this.imageLink,
+    this.showName,
+    this.premiered,
+    this.callback,
+  });
+  @override
+  Widget build(BuildContext context) {
+    String year = premiered!.substring(0, 4);
+    Widget card = Container(
+      margin: const EdgeInsets.only(top: 20),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: IntrinsicHeight(
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.fromLTRB(0, 0, 10, 10),
+                width: cardSize == 'tall'
+                    ? SizeConfig.blockSizeHorizontal! * 30
+                    : cardSize == 'wide'
+                        ? SizeConfig.blockSizeHorizontal! * 60
+                        : SizeConfig.blockSizeHorizontal! * 50,
+                height: cardSize == 'tall'
+                    ? SizeConfig.blockSizeVertical! * 20
+                    : cardSize == 'wide'
+                        ? SizeConfig.blockSizeVertical! * 15
+                        : SizeConfig.blockSizeVertical! * 30,
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: Container(
+                        padding: const EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.blueGrey,
+                              blurRadius: 5,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                          image: DecorationImage(
+                            image: NetworkImage(
+                              imageLink!,
+                            ),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned.fill(
+                      child: Container(
+                        padding: const EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(20)),
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.black.withOpacity(0.5),
+                              Colors.transparent,
+                              Colors.transparent,
+                              Colors.transparent,
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            stops: const [0.15, 0.5, 0.6, 1],
+                          ),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              showName!,
+                              style: normalBoldTextWhite(),
+                            ),
+                            Text(
+                              year!,
+                              style: normalTextLightWhite(),
+                            ),
+                            Expanded(
+                              child: Container(),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    return GestureDetector(
+      onTap: () {
+        callback!(cardSize);
+      },
+      child: card,
+    );
+  }
+}
+
 // Global Toast
 showToast(context, String title, String message, Color color) {
   return showOverlayNotification((context) {
@@ -504,7 +616,7 @@ getHttp(link, data) async {
     return response.data;
   } on DioError catch (e) {
     print('Error with get request');
-    print(e);
+    print(e.response);
     return (e.response?.data ?? {"message": 'Error processing request'});
   }
 }
