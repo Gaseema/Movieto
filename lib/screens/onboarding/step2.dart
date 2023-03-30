@@ -17,20 +17,37 @@ class StepTwoState extends State<StepTwo> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: Image.asset('images/genafrica.png'),
-          ),
-          Container(
-            margin: const EdgeInsets.only(bottom: 50),
-            child: Text(
-              'We help you grow your investment',
-              style: headerBoldTextBlack(),
-              textAlign: TextAlign.center,
+      body: Container(
+        margin: EdgeInsets.only(
+          left: 20,
+          right: 20,
+        ),
+        width: SizeConfig.blockSizeHorizontal! * 100,
+        child: Column(
+          children: [
+            Container(
+              margin: EdgeInsets.only(top: SizeConfig.blockSizeVertical! * 10),
+              child: Image.asset(
+                'images/logo_pink.png',
+                width: SizeConfig.blockSizeHorizontal! * 15,
+              ),
             ),
-          ),
-        ],
+            Expanded(
+              child: Image.asset(
+                'images/illustrations/step_two.png',
+                width: SizeConfig.blockSizeHorizontal! * 70,
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(bottom: 50),
+              child: Text(
+                'TV Show Discovery Made Easy with MovieTo',
+                style: headerBoldTextBlack(),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

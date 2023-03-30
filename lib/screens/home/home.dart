@@ -48,12 +48,8 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
             children: [
               Text(
                 'Popular',
-                style: header5BoldTextBlack(),
+                style: header5BoldTextWhite(),
               ),
-              // Text(
-              //   'View all',
-              //   style: header5BoldTextBlack(),
-              // ),
             ],
           ),
           SizedBox(
@@ -109,7 +105,7 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
             children: [
               Text(
                 'Recommendation',
-                style: header5BoldTextBlack(),
+                style: header5BoldTextWhite(),
               ),
               // Text(
               //   'View all',
@@ -184,7 +180,7 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
             children: [
               Text(
                 'Top Rated',
-                style: header5BoldTextBlack(),
+                style: header5BoldTextWhite(),
               ),
               // Text(
               //   'View all',
@@ -273,23 +269,38 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
       ),
     );
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.only(top: 20),
-              margin: const EdgeInsets.only(left: 20, right: 20),
-              child: MediaQuery.removePadding(
-                context: context,
-                removeTop: true,
-                child: ListView(
-                  shrinkWrap: true,
-                  children: [popular, recommended, topRated],
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color.fromRGBO(20, 24, 57, 1),
+              Color.fromRGBO(25, 27, 65, 0.9),
+              Color.fromRGBO(25, 27, 65, 0.9),
+              Color.fromRGBO(20, 24, 57, 1),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: [0.15, 0.5, 0.6, 1],
+          ),
+        ),
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.only(top: 20),
+                margin: const EdgeInsets.only(left: 20, right: 20),
+                child: MediaQuery.removePadding(
+                  context: context,
+                  removeTop: true,
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: [popular, recommended, topRated],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

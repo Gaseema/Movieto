@@ -36,6 +36,9 @@ PersistentTabController bottomNavigationController =
 
 Map globalUserData = {};
 
+// Main colors
+Color pinkColor = const Color.fromRGBO(254, 1, 120, 1);
+
 ////////////////////////////////////////////////////////////////
 /// TEXT STYLES
 ////////////////////////////////////////////////////////////////
@@ -53,6 +56,14 @@ TextStyle smallTextLightWhite() {
     fontSize: SizeConfig.blockSizeHorizontal! * 2.7,
     letterSpacing: .8,
     color: Colors.white.withOpacity(0.8),
+  );
+}
+
+TextStyle smallTextWhite() {
+  return GoogleFonts.lato(
+    fontSize: SizeConfig.blockSizeHorizontal! * 2.7,
+    letterSpacing: .8,
+    color: Colors.white,
   );
 }
 
@@ -184,12 +195,30 @@ TextStyle header2BoldTextBlack() {
   );
 }
 
+TextStyle header2BoldTextWhite() {
+  return GoogleFonts.lato(
+    fontSize: SizeConfig.blockSizeHorizontal! * 5,
+    letterSpacing: .8,
+    fontWeight: FontWeight.w600,
+    color: Colors.white,
+  );
+}
+
 TextStyle header5BoldTextBlack() {
   return GoogleFonts.lato(
     fontSize: SizeConfig.blockSizeHorizontal! * 4,
     letterSpacing: .8,
     fontWeight: FontWeight.w600,
     color: Colors.black,
+  );
+}
+
+TextStyle header5BoldTextWhite() {
+  return GoogleFonts.lato(
+    fontSize: SizeConfig.blockSizeHorizontal! * 4,
+    letterSpacing: .8,
+    fontWeight: FontWeight.w600,
+    color: Colors.white,
   );
 }
 
@@ -345,7 +374,7 @@ class _AnimatedButtonState extends State<AnimatedButton>
             color: widget.disabled == null || widget.disabled == false
                 ? widget.buttonColor == 'white'
                     ? Colors.white
-                    : Colors.blue
+                    : pinkColor
                 : Colors.grey,
             borderRadius: borderRadius,
           ),

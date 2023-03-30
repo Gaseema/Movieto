@@ -44,24 +44,24 @@ class DashboardState extends State<Dashboard> with WidgetsBindingObserver {
         page == 'Home'
             ? activePage == 0
                 ? 'images/icons/home_white.png'
-                : 'images/icons/home_black.png'
+                : 'images/icons/home_white.png'
             : page == 'Search'
                 ? activePage == 1
                     ? 'images/icons/search_white.png'
-                    : 'images/icons/search_black.png'
+                    : 'images/icons/search_white.png'
                 : page == 'Favorites'
                     ? activePage == 2
                         ? 'images/icons/heart_white.png'
-                        : 'images/icons/heart_black.png'
+                        : 'images/icons/heart_white.png'
                     : activePage == 3
                         ? 'images/icons/profile_white.png'
-                        : 'images/icons/profile_black.png',
+                        : 'images/icons/profile_white.png',
         width: SizeConfig.blockSizeHorizontal! * 5,
       ),
       title: page,
-      activeColorPrimary: Colors.red,
-      inactiveColorPrimary: CupertinoColors.systemGrey,
-      activeColorSecondary: Colors.blue,
+      activeColorPrimary: Colors.white,
+      inactiveColorPrimary: Colors.white,
+      activeColorSecondary: Colors.white,
       textStyle: normalTextBlack(),
     );
   }
@@ -74,65 +74,68 @@ class DashboardState extends State<Dashboard> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          activePage == 0
-              ? CustomAppBar(
-                  title: null,
-                  icon: null,
-                  callback: (res) {
-                    Navigator.pop(context);
-                  },
-                )
-              : Container(),
-          Expanded(
-            child: PersistentTabView(
-              context,
-              controller: bottomNavigationController,
-              screens: _buildScreens(),
-              items: _navBarsItems(),
-              confineInSafeArea: true,
-              backgroundColor: Colors.white,
-              handleAndroidBackButtonPress: true,
-              resizeToAvoidBottomInset: true,
-              stateManagement: true,
-              hideNavigationBarWhenKeyboardShows: true,
-              decoration: NavBarDecoration(
-                borderRadius: BorderRadius.circular(0.0),
-                colorBehindNavBar: Colors.white,
-              ),
-              popAllScreensOnTapOfSelectedTab: true,
-              popActionScreens: PopActionScreensType.all,
-              itemAnimationProperties: const ItemAnimationProperties(
-                duration: Duration(milliseconds: 200),
-                curve: Curves.ease,
-              ),
-              screenTransitionAnimation: const ScreenTransitionAnimation(
-                animateTabTransition: true,
-                curve: Curves.ease,
-                duration: Duration(milliseconds: 200),
-              ),
-              navBarStyle: NavBarStyle.style1,
-              onItemSelected: (value) {
-                print(globalUserData);
-                if (value == 2) {
-                  dioRequest(
-                    'post',
-                    '/user/fetch/favorites',
-                    {'userID': globalUserData['_id']},
-                  ).then((val) {
-                    setState(() {
-                      favoriteList = val['favorites'];
+      body: Container(
+        color: Color.fromRGBO(17, 21, 52, 1),
+        child: Column(
+          children: [
+            activePage == 0
+                ? CustomAppBar(
+                    title: null,
+                    icon: null,
+                    callback: (res) {
+                      Navigator.pop(context);
+                    },
+                  )
+                : Container(),
+            Expanded(
+              child: PersistentTabView(
+                context,
+                controller: bottomNavigationController,
+                screens: _buildScreens(),
+                items: _navBarsItems(),
+                confineInSafeArea: true,
+                backgroundColor: const Color.fromRGBO(37, 44, 87, 1),
+                handleAndroidBackButtonPress: true,
+                resizeToAvoidBottomInset: true,
+                stateManagement: true,
+                hideNavigationBarWhenKeyboardShows: true,
+                decoration: NavBarDecoration(
+                  borderRadius: BorderRadius.circular(0.0),
+                  colorBehindNavBar: Colors.white,
+                ),
+                popAllScreensOnTapOfSelectedTab: true,
+                popActionScreens: PopActionScreensType.all,
+                itemAnimationProperties: const ItemAnimationProperties(
+                  duration: Duration(milliseconds: 200),
+                  curve: Curves.ease,
+                ),
+                screenTransitionAnimation: const ScreenTransitionAnimation(
+                  animateTabTransition: true,
+                  curve: Curves.ease,
+                  duration: Duration(milliseconds: 200),
+                ),
+                navBarStyle: NavBarStyle.style1,
+                onItemSelected: (value) {
+                  print(globalUserData);
+                  if (value == 2) {
+                    dioRequest(
+                      'post',
+                      '/user/fetch/favorites',
+                      {'userID': globalUserData['_id']},
+                    ).then((val) {
+                      setState(() {
+                        favoriteList = val['favorites'];
+                      });
                     });
+                  }
+                  setState(() {
+                    activePage = value;
                   });
-                }
-                setState(() {
-                  activePage = value;
-                });
-              },
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

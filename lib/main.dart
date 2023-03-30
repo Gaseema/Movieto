@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const Login(),
+          builder: (context) => const Onboarding(),
         ),
       );
     }

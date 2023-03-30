@@ -53,6 +53,15 @@ flutter:
     - images/launcherIcon.png
     - images/test.jpeg
     - images/nodata.png
+    - images/logo_pink.png
+    - images/logo_white.png
+
+    #Illustration
+    - images/illustrations/step_one.png
+    - images/illustrations/step_two.png
+    - images/illustrations/step_three.png
+    - images/illustrations/movie_collage.png
+
 
     #Icons
     - images/icons/profile_black.png
