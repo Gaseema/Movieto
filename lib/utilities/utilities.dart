@@ -458,13 +458,15 @@ class MessageNotification extends StatelessWidget {
 }
 
 class TvShowCard extends StatelessWidget {
+  final int? showID;
   final String? cardSize;
   final String? imageLink;
   final String? showName;
   final String? premiered;
   final ValueSetter<dynamic>? callback;
   TvShowCard({
-    @required this.cardSize,
+    this.showID,
+    this.cardSize,
     this.imageLink,
     this.showName,
     this.premiered,
@@ -475,7 +477,7 @@ class TvShowCard extends StatelessWidget {
     String year = premiered!.substring(0, 4);
     Widget card = Container(
       margin: const EdgeInsets.only(top: 20),
-      padding: EdgeInsets.only(left: 10),
+      padding: const EdgeInsets.only(left: 10),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: IntrinsicHeight(
@@ -571,7 +573,7 @@ class TvShowCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        callback!(cardSize);
+        callback!(showID);
       },
       child: card,
     );

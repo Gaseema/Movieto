@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movieto/utilities/utilities.dart';
+import 'package:movieto/screens/showDetails.dart';
 import 'package:html_unescape/html_unescape.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -74,12 +76,21 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
                     itemBuilder: (context, index) {
                       final show = popularList[index];
                       return TvShowCard(
+                        showID: show['id'],
                         cardSize: 'normal',
                         imageLink: show['image']['medium'],
                         showName: show['name'],
                         premiered: show['premiered'],
                         callback: (value) {
-                          print(value);
+                          PersistentNavBarNavigator.pushNewScreen(
+                            context,
+                            screen: ShowDetails(
+                              showID: value,
+                            ),
+                            withNavBar: false,
+                            pageTransitionAnimation:
+                                PageTransitionAnimation.cupertino,
+                          );
                         },
                       );
                     },
@@ -190,7 +201,7 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
                   itemCount: popularList.length,
                   itemBuilder: (context, index) {
                     final show = popularList[index];
-                    String year = show['premiered'].substring(0, 4);
+                    String year = show['premiered'].substring(0, 4) ?? '';
                     String summaryOutput = HtmlUnescape().convert(
                         show['summary'].replaceAll(RegExp('<[^>]*>'), ''));
 
