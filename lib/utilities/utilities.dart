@@ -459,6 +459,7 @@ class MessageNotification extends StatelessWidget {
 
 class TvShowCard extends StatelessWidget {
   final int? showID;
+  final int? season;
   final String? cardSize;
   final String? imageLink;
   final String? showName;
@@ -466,6 +467,7 @@ class TvShowCard extends StatelessWidget {
   final ValueSetter<dynamic>? callback;
   TvShowCard({
     this.showID,
+    this.season,
     this.cardSize,
     this.imageLink,
     this.showName,
@@ -527,12 +529,19 @@ class TvShowCard extends StatelessWidget {
                           borderRadius:
                               const BorderRadius.all(Radius.circular(20)),
                           gradient: LinearGradient(
-                            colors: [
-                              Colors.black.withOpacity(0.5),
-                              Colors.transparent,
-                              Colors.transparent,
-                              Colors.transparent,
-                            ],
+                            colors: season != null
+                                ? [
+                                    Colors.transparent,
+                                    Colors.transparent,
+                                    Colors.transparent,
+                                    Colors.black.withOpacity(0.5),
+                                  ]
+                                : [
+                                    Colors.black.withOpacity(0.5),
+                                    Colors.transparent,
+                                    Colors.transparent,
+                                    Colors.transparent,
+                                  ],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                             stops: const [0.15, 0.5, 0.6, 1],
@@ -541,6 +550,15 @@ class TvShowCard extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
+                            Expanded(
+                              child: Container(),
+                            ),
+                            season != null
+                                ? Text(
+                                    'Season $season',
+                                    style: normalBoldTextWhite(),
+                                  )
+                                : Container(),
                             cardSize == 'tall'
                                 ? Container()
                                 : cardSize == 'wide'
@@ -555,9 +573,6 @@ class TvShowCard extends StatelessWidget {
                                     year,
                                     style: normalTextLightWhite(),
                                   ),
-                            Expanded(
-                              child: Container(),
-                            ),
                           ],
                         ),
                       ),

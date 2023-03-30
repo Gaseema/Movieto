@@ -14,17 +14,30 @@ class ShowDetails extends StatefulWidget {
 class ShowDetailsState extends State<ShowDetails> with WidgetsBindingObserver {
   Map showDetails = {};
   List castList = [];
+  List seasonsList = [];
+
   @override
   void initState() {
     super.initState();
+    print('the id is: ${widget.showID}');
+    // Fetch show details
     dioRequest('get', '/shows/${widget.showID}', null).then((val) {
       setState(() {
         showDetails = val;
       });
     });
+
+    // Fetch show cast list
     dioRequest('get', '/shows/${widget.showID}/cast', null).then((val) {
       setState(() {
         castList = val;
+      });
+    });
+
+    // Show seasons for the show
+    dioRequest('get', '/shows/${widget.showID}/episodes', null).then((val) {
+      setState(() {
+        seasonsList = val;
       });
     });
   }
@@ -103,6 +116,44 @@ class ShowDetailsState extends State<ShowDetails> with WidgetsBindingObserver {
               ),
       ),
     );
+    Widget seasons = Container(
+      margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
+      child: SizedBox(
+        height: SizeConfig.blockSizeVertical! * 20,
+        child: seasonsList.isEmpty
+            ? const Center(
+                child: SizedBox(
+                  height: 40,
+                  width: 40,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 3.5,
+                    color: Colors.blue,
+                  ),
+                ),
+              )
+            : ListView.builder(
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                itemCount: seasonsList.length,
+                itemBuilder: (context, index) {
+                  final seasonsLst = seasonsList[index];
+                  print(seasonsLst);
+                  return Container(
+                    child: TvShowCard(
+                      cardSize: 'normal',
+                      imageLink: seasonsLst['image']['medium'],
+                      showName: seasonsLst['name'],
+                      premiered: seasonsLst['airdate'],
+                      season: seasonsLst['season'],
+                      callback: (value) {
+                        print(value);
+                      },
+                    ),
+                  );
+                },
+              ),
+      ),
+    );
     return Scaffold(
       body: showDetails.isEmpty
           ? const Center(
@@ -174,6 +225,7 @@ class ShowDetailsState extends State<ShowDetails> with WidgetsBindingObserver {
                   ),
                 ),
                 casts,
+                seasons,
                 Container(
                   margin: const EdgeInsets.only(
                     top: 20,
