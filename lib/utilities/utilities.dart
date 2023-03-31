@@ -704,6 +704,45 @@ postHttp(link, data) async {
   }
 }
 
+globalBottomSheet(int? height, context, String header, Widget content) {
+  showModalBottomSheet(
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(
+        top: Radius.circular(25.0),
+      ),
+    ),
+    isScrollControlled: true,
+    context: context,
+    builder: (BuildContext context) {
+      return StatefulBuilder(
+        builder: (BuildContext context, setState) => Container(
+          height: SizeConfig.blockSizeVertical! * height!,
+          padding: EdgeInsets.only(
+            top: 20,
+            left: 20,
+            right: 20,
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(bottom: 20),
+                child: Text(
+                  header,
+                  style: header6BoldTextBlack(),
+                ),
+              ),
+              Expanded(child: content),
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
+
 
 ////////////////////////////////////////////////////////////////
 /// FUNCTIONS STOP

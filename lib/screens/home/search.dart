@@ -3,7 +3,7 @@ import 'package:movieto/utilities/utilities.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:movieto/screens/showDetails.dart';
-import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 
 class Search extends StatefulWidget {
   const Search({Key? key}) : super(key: key);
@@ -16,13 +16,153 @@ class SearchState extends State<Search> with WidgetsBindingObserver {
   TextEditingController searchInput = TextEditingController();
   String searchVal = '';
   List searchList = [];
+  int active = 1;
+  String? startDate;
+
+  pickDate() async {
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1800),
+      lastDate: DateTime(2101),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(
+              primary: purpleColor,
+              onPrimary: Colors.white,
+              onSurface: purpleColor,
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: pinkColor,
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (pickedDate != null) {
+      String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+      return formattedDate;
+    } else {
+      print("Date is not selected");
+    }
+  }
 
   updateSearchResults() {
-    dioRequest('get', '/search/shows?q=$searchVal', null).then((val) {
+    dioRequest(
+            'get',
+            active == 1
+                ? '/search/shows?q=$searchVal'
+                : '/schedule?date=$startDate',
+            null)
+        .then((val) {
       setState(() {
         searchList = val;
       });
     });
+  }
+
+  updateActive(int currentActive) {
+    setState(() {
+      active = currentActive;
+      if (currentActive == 1) {
+        searchInput.text == '';
+      }
+    });
+  }
+
+  void _showDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (
+            BuildContext context,
+            StateSetter setState,
+          ) {
+            return AlertDialog(
+              title: Text(
+                "Search settings",
+                style: normalBoldTextBlack(),
+              ),
+              content: Wrap(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        active = 1;
+                      });
+                      updateActive(1);
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 20),
+                      width: SizeConfig.blockSizeHorizontal! * 70,
+                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: active == 1
+                              ? pinkColor.withOpacity(0.5)
+                              : Colors.blueAccent.withOpacity(0.2),
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(7),
+                      ),
+                      child: Text(
+                        'Name of the show',
+                        style: normalBoldTextBlack(),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        active = 2;
+                      });
+                      pickDate().then((date) {
+                        setState(() {
+                          startDate = date;
+                          searchInput.text = date;
+                        });
+                      });
+                      updateSearchResults();
+                    },
+                    child: Container(
+                      width: SizeConfig.blockSizeHorizontal! * 70,
+                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: active == 2
+                              ? pinkColor.withOpacity(0.5)
+                              : Colors.blueAccent.withOpacity(0.2),
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(7),
+                      ),
+                      child: Text(
+                        'Date of premiere',
+                        style: normalBoldTextBlack(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              actions: [
+                MaterialButton(
+                  child: Text("OK"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -32,8 +172,6 @@ class SearchState extends State<Search> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.red));
     Widget displaySearchList = Container(
       child: ListView.builder(
         scrollDirection: Axis.vertical,
@@ -42,8 +180,7 @@ class SearchState extends State<Search> with WidgetsBindingObserver {
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           final show = searchList[index];
-          print(show['show']['image']);
-          String year = '2023-12-33';
+          String year = show['show']['premiered'] ?? '2023-12-33';
           String summaryOutput = show['show']['summary'] == null
               ? ''
               : HtmlUnescape().convert(
@@ -137,6 +274,10 @@ class SearchState extends State<Search> with WidgetsBindingObserver {
         ),
         child: Column(
           children: [
+            Text(
+              'active: $active',
+              style: normalBoldTextWhite(),
+            ),
             Container(
               margin: EdgeInsets.only(
                 top: SizeConfig.blockSizeVertical! * 10,
@@ -146,51 +287,70 @@ class SearchState extends State<Search> with WidgetsBindingObserver {
               child: Row(
                 children: [
                   Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        contentPadding:
-                            const EdgeInsets.fromLTRB(20, 10, 10, 10),
-                        hintText: 'Search...',
-                        hintStyle: normalTextBlack(),
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(
-                            color: pinkColor.withOpacity(0.2),
-                            width: 2.3,
+                    child: GestureDetector(
+                      onTap: () {
+                        if (active != 1) {
+                          pickDate().then((date) {
+                            setState(() {
+                              startDate = date;
+                              searchInput.text = date;
+                            });
+                          });
+                          updateSearchResults();
+                        }
+                      },
+                      child: TextField(
+                        decoration: InputDecoration(
+                          enabled: active == 1 ? true : false,
+                          contentPadding:
+                              const EdgeInsets.fromLTRB(20, 10, 10, 10),
+                          hintText: 'Search...',
+                          hintStyle: normalTextBlack(),
+                          filled: true,
+                          fillColor: Colors.white,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide(
+                              color: pinkColor.withOpacity(0.2),
+                              width: 2.3,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide(
+                              color: pinkColor,
+                              width: 2.3,
+                            ),
                           ),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(
-                            color: pinkColor,
-                            width: 2.3,
-                          ),
-                        ),
+                        onChanged: ((value) {
+                          setState(() {
+                            searchVal = value;
+                          });
+                          updateSearchResults();
+                        }),
+                        controller: searchInput,
                       ),
-                      onChanged: ((value) {
-                        setState(() {
-                          searchVal = value;
-                        });
-                        updateSearchResults();
-                      }),
-                      controller: searchInput,
                     ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.only(left: 20),
-                    decoration: BoxDecoration(
-                      color: pinkColor,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Image.asset(
-                      'images/icons/sort.png',
-                      width: SizeConfig.blockSizeHorizontal! * 5,
+                  GestureDetector(
+                    onTap: () {
+                      _showDialog(context);
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      margin: const EdgeInsets.only(left: 20),
+                      decoration: BoxDecoration(
+                        color: pinkColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Image.asset(
+                        'images/icons/sort.png',
+                        width: SizeConfig.blockSizeHorizontal! * 5,
+                      ),
                     ),
                   ),
                 ],
