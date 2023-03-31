@@ -10,9 +10,10 @@ import 'package:transparent_image/transparent_image.dart';
 
 // IP address
 String ipAddress = 'https://api.tvmaze.com';
-String ipAddressDB = 'http://192.168.27.245:8040';
+String ipAddressDB = 'http://35.180.18.128:8040';
 List favoriteList = [];
 bool loadingFav = false;
+num activePage = 0;
 
 // Vertical & horizontal percentage size
 class SizeConfig {

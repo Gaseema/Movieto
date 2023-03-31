@@ -95,6 +95,7 @@ class SearchState extends State<Search> with WidgetsBindingObserver {
                     onTap: () {
                       setState(() {
                         active = 1;
+                        searchInput.text = '';
                       });
                       updateActive(1);
                     },
@@ -274,10 +275,6 @@ class SearchState extends State<Search> with WidgetsBindingObserver {
         ),
         child: Column(
           children: [
-            Text(
-              'active: $active',
-              style: normalBoldTextWhite(),
-            ),
             Container(
               margin: EdgeInsets.only(
                 top: SizeConfig.blockSizeVertical! * 10,

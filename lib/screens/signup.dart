@@ -3,6 +3,7 @@ import 'package:movieto/utilities/utilities.dart';
 import 'package:movieto/screens/login.dart';
 import 'package:movieto/utilities/utilities.dart';
 import 'package:movieto/screens/home/dashboard.dart';
+import 'package:flutter/services.dart';
 
 class Signup extends StatefulWidget {
   const Signup({Key? key}) : super(key: key);
@@ -64,8 +65,40 @@ class SignupState extends State<Signup> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
+      statusBarIconBrightness: Brightness.light,
+      statusBarBrightness: Brightness.dark,
+    ));
     return WillPopScope(
-      onWillPop: () => alertExitModal(context),
+      onWillPop: () async {
+        bool confirm = await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Are you sure?'),
+              content: Text('Do you want to exit the app?'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(true),
+                  child: Text('Exit'),
+                ),
+              ],
+            );
+          },
+        );
+
+        if (confirm != null && confirm) {
+          // User confirmed, pop the screen
+          Navigator.of(context).pop();
+        }
+
+        // Return false to prevent default back button behavior
+        return false;
+      },
       child: Scaffold(
         body: Container(
           width: SizeConfig.blockSizeHorizontal! * 100,
@@ -385,6 +418,9 @@ class SignupState extends State<Signup> with WidgetsBindingObserver {
                           req: 'post',
                           callback: (res) async {
                             if (res['isSuccessful'] == true) {
+                              setState(() {
+                                globalUserData = res['user'];
+                              });
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

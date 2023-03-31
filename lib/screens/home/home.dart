@@ -182,10 +182,6 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
                 'Top Rated',
                 style: header5BoldTextWhite(),
               ),
-              // Text(
-              //   'View all',
-              //   style: header5BoldTextBlack(),
-              // ),
             ],
           ),
           topRatedList.isEmpty
@@ -231,36 +227,49 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
                           },
                         ),
                         Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                show['name'],
-                                style: normalBoldTextWhite(),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(bottom: 10),
-                                child: Text(
-                                  '($year)',
-                                  style: normalBoldTextLightWhite(),
+                          child: GestureDetector(
+                            onTap: () {
+                              PersistentNavBarNavigator.pushNewScreen(
+                                context,
+                                screen: ShowDetails(
+                                  showID: show['id'],
                                 ),
-                              ),
-                              Text(
-                                'Summary',
-                                style: smallTextLightWhite(),
-                              ),
-                              Container(
-                                child: Text(
-                                  summaryOutput,
-                                  style: normalTextWhite(),
-                                  maxLines: 8,
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
+                                withNavBar: false,
+                                pageTransitionAnimation:
+                                    PageTransitionAnimation.cupertino,
+                              );
+                            },
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  show['name'],
+                                  style: normalBoldTextWhite(),
                                 ),
-                              ),
-                            ],
+                                Container(
+                                  margin: const EdgeInsets.only(bottom: 10),
+                                  child: Text(
+                                    '($year)',
+                                    style: normalBoldTextLightWhite(),
+                                  ),
+                                ),
+                                Text(
+                                  'Summary',
+                                  style: smallTextLightWhite(),
+                                ),
+                                Container(
+                                  child: Text(
+                                    summaryOutput,
+                                    style: normalTextWhite(),
+                                    maxLines: 8,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.left,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        )
+                        ),
                       ],
                     );
                   },

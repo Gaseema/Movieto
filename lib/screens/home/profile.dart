@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movieto/utilities/utilities.dart';
+import 'package:movieto/screens/login.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -154,12 +156,26 @@ class ProfileState extends State<Profile> with WidgetsBindingObserver {
               child: MediaQuery.removePadding(
                 context: context,
                 removeTop: true,
-                child: Container(
-                  width: SizeConfig.blockSizeHorizontal! * 80,
-                  child: Text(
-                    'Log out',
-                    style: normalBoldTextWhite(),
-                    textAlign: TextAlign.center,
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      activePage = 1;
+                    });
+                    PersistentNavBarNavigator.pushNewScreen(
+                      context,
+                      screen: Login(),
+                      withNavBar: false,
+                      pageTransitionAnimation:
+                          PageTransitionAnimation.cupertino,
+                    );
+                  },
+                  child: Container(
+                    width: SizeConfig.blockSizeHorizontal! * 80,
+                    child: Text(
+                      'Log out',
+                      style: normalBoldTextWhite(),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
               ),

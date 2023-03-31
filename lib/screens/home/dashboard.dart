@@ -15,8 +15,6 @@ class Dashboard extends StatefulWidget {
 }
 
 class DashboardState extends State<Dashboard> with WidgetsBindingObserver {
-  num activePage = 0;
-
   // Navigation Screens
   List<Widget> _buildScreens() {
     return [

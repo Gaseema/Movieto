@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movieto/utilities/utilities.dart';
 import 'package:movieto/screens/home/dashboard.dart';
 import 'package:movieto/screens/signup.dart';
+import 'package:flutter/services.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -43,6 +44,10 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
+      statusBarIconBrightness: Brightness.light,
+      statusBarBrightness: Brightness.dark,
+    ));
     return WillPopScope(
       onWillPop: () => alertExitModal(context),
       child: Scaffold(

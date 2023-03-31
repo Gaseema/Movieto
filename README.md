@@ -1,16 +1,43 @@
-# movieto
+# MovieTo
 
-A new Flutter project.
+### Description
+The MovieTo app is a mobile application that allows users to keep track of their favorite TV shows. Users can search for TV shows by name, genre, rating, date of premiere, and status. They can view details of each show, including the name, crew, episodes/seasons, and an image gallery. The app also allows users to add shows to their watch schedule, mark shows as favorites, and comment on shows they have watched.
 
-## Getting Started
+### Screenshots
+### Installation
+To install the MovieTo app, follow these steps:
+1. Clone the repository from GitHub: git clone https://github.com/Gaseema/Movieto.git
+2. Install the necessary dependencies: flutter pub get
+3. Run the app on a device or emulator: flutter run
+### Usage
+To use the MovieTo app, follow these steps:
 
-This project is a starting point for a Flutter application.
+1. Open the app and log in using your username and password.
+2. Search for TV shows by name, genre, rating, date of premiere, or status.
+3. View details of each show, including the name, crew, episodes/seasons, and image gallery.
+4. Add shows to your watch schedule by selecting the "Add to Watch Schedule" button.
+5. Mark shows as favorites by selecting the "Favorite" button.
+6. Comment on shows you have watched by selecting the "Comment" button.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Contributing
+If you would like to contribute to the MovieTo app, please follow these guidelines:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Fork the repository and create a new branch for your changes.
+2. Make your changes and submit a pull request.
+3. Your changes will be reviewed and merged if they meet the project's standards.
+
+### Credits
+The MovieTo app was created using the following libraries and resources:
+
+- Flutter
+- Dart
+- tvmaze.com API
+
+
+### License
+The MovieTo app is released under the MIT License.
+
+### Contact
+If you have any questions or concerns about the MovieTo app, please contact the development team at gaseema.n@gmail.com
+
