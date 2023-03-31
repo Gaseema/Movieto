@@ -4,9 +4,9 @@
 The MovieTo app is a mobile application that allows users to keep track of their favorite TV shows. Users can search for TV shows by name or date of premiere, and status. They can view details of each show, including the name, crew, episodes/seasons, and an image gallery. The app also allows users to add shows to their watch schedule, mark shows as favorites, and comment on shows they have watched.
 
 ### Screenshots
-![alt text](https://github.com/Gaseema/Movieto/blob/master/images/screenshots/1.png?raw=true)
-![alt text](https://github.com/Gaseema/Movieto/blob/master/images/screenshots/2.png?raw=true)
-![alt text](https://github.com/Gaseema/Movieto/blob/master/images/screenshots/3.png?raw=true)
+![alt text](https://github.com/Gaseema/Movieto/blob/master/images/screenshots/1.png#left)
+![alt text](https://github.com/Gaseema/Movieto/blob/master/images/screenshots/2.png#right)
+![alt text](https://github.com/Gaseema/Movieto/blob/master/images/screenshots/3.png#center)
 ![alt text](https://github.com/Gaseema/Movieto/blob/master/images/screenshots/4.png?raw=true)
 ![alt text](https://github.com/Gaseema/Movieto/blob/master/images/screenshots/5.png?raw=true)
 ![alt text](https://github.com/Gaseema/Movieto/blob/master/images/screenshots/6.png?raw=true)
