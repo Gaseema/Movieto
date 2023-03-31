@@ -4,15 +4,15 @@
 The MovieTo app is a mobile application that allows users to keep track of their favorite TV shows. Users can search for TV shows by name or date of premiere, and status. They can view details of each show, including the name, crew, episodes/seasons, and an image gallery. The app also allows users to add shows to their watch schedule, mark shows as favorites, and comment on shows they have watched.
 
 ### Screenshots
-<img src="https://github.com/Gaseema/Movieto/blob/master/images/screenshots/1.png" align="left" width="300" margin-bottom:20>
-<img src="https://github.com/Gaseema/Movieto/blob/master/images/screenshots/2.png" align="right"  width="300">
-<img src="https://github.com/Gaseema/Movieto/blob/master/images/screenshots/3.png" align="center"  width="300">
-<img src="https://github.com/Gaseema/Movieto/blob/master/images/screenshots/4.png" align="left"  width="300">
-<img src="https://github.com/Gaseema/Movieto/blob/master/images/screenshots/5.png" align="right"  width="300">
-<img src="https://github.com/Gaseema/Movieto/blob/master/images/screenshots/6.png" align="center"  width="300">
-<img src="https://github.com/Gaseema/Movieto/blob/master/images/screenshots/7.png" align="left"  width="300">
-<img src="https://github.com/Gaseema/Movieto/blob/master/images/screenshots/8.png" align="right"  width="300">
-<img src="https://github.com/Gaseema/Movieto/blob/master/images/screenshots/9.png" align="center"  width="300">
+<img src="https://github.com/Gaseema/Movieto/blob/master/images/screenshots/1.png"  width="300>
+<img src="https://github.com/Gaseema/Movieto/blob/master/images/screenshots/2.png"   width="300">
+<img src="https://github.com/Gaseema/Movieto/blob/master/images/screenshots/3.png"   width="300">
+<img src="https://github.com/Gaseema/Movieto/blob/master/images/screenshots/4.png"   width="300">
+<img src="https://github.com/Gaseema/Movieto/blob/master/images/screenshots/5.png"   width="300">
+<img src="https://github.com/Gaseema/Movieto/blob/master/images/screenshots/6.png"   width="300">
+<img src="https://github.com/Gaseema/Movieto/blob/master/images/screenshots/7.png"   width="300">
+<img src="https://github.com/Gaseema/Movieto/blob/master/images/screenshots/8.png"   width="300">
+<img src="https://github.com/Gaseema/Movieto/blob/master/images/screenshots/9.png"   width="300">
 <img src="https://github.com/Gaseema/Movieto/blob/master/images/screenshots/10.png"  width="300">
 
 ### Installation
