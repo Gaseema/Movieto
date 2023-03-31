@@ -5,8 +5,8 @@ The MovieTo app is a mobile application that allows users to keep track of their
 
 ### Screenshots
 <img src="https://github.com/Gaseema/Movieto/blob/master/images/screenshots/1.png" align="left" width="300" >
-<img src="https://github.com/Gaseema/Movieto/blob/master/images/screenshots/2.png" align="center"  alt= “” width="300">
-<img src="https://github.com/Gaseema/Movieto/blob/master/images/screenshots/3.png" align="right"  alt= “” width="300">
+<img src="https://github.com/Gaseema/Movieto/blob/master/images/screenshots/2.png" align="left"  alt= “” width="300">
+<img src="https://github.com/Gaseema/Movieto/blob/master/images/screenshots/3.png" align="left"  alt= “” width="300">
 <img src="https://github.com/Gaseema/Movieto/blob/master/images/screenshots/4.png" alt= “” width="300">
 <img src="https://github.com/Gaseema/Movieto/blob/master/images/screenshots/5.png" alt= “” width="300">
 <img src="https://github.com/Gaseema/Movieto/blob/master/images/screenshots/6.png" alt= “” width="300">
