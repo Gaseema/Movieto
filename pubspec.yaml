@@ -69,13 +69,14 @@ flutter:
     - images/icons/hide.png
     - images/icons/timer_white.png
     - images/icons/timer_red.png
+    - images/icons/timer_pink.png
     - images/icons/bookmark_red.png
     - images/icons/bookmark_white.png
     - images/icons/sort.png
     - images/icons/home_black.png
     - images/icons/search_black.png
-    - images/icons/heart_red.png
     - images/icons/heart_black.png
+    - images/icons/heart_pink.png
     - images/icons/profile_black.png
     - images/icons/profile_white.png
     - images/icons/heart_white.png

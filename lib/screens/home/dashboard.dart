@@ -78,16 +78,6 @@ class DashboardState extends State<Dashboard> with WidgetsBindingObserver {
         color: const Color.fromRGBO(17, 21, 52, 1),
         child: Column(
           children: [
-            activePage == 0
-                ? CustomAppBar(
-                    title: null,
-                    icon: null,
-                    textColor: 'white',
-                    callback: (res) {
-                      Navigator.pop(context);
-                    },
-                  )
-                : Container(),
             Expanded(
               child: PersistentTabView(
                 context,

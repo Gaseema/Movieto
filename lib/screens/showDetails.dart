@@ -229,95 +229,43 @@ class ShowDetailsState extends State<ShowDetails> with WidgetsBindingObserver {
                     height: SizeConfig.blockSizeVertical! * 50,
                     child: Stack(
                       children: [
-                        Positioned.fill(
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                            ),
-                            child: FadeInImage.memoryNetwork(
-                              placeholder: kTransparentImage,
-                              image: loadImage(),
-                              fit: BoxFit.cover,
-                            ),
+                        Container(
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                          ),
+                          child: FadeInImage.memoryNetwork(
+                            placeholder: kTransparentImage,
+                            image: loadImage(),
+                            fit: BoxFit.cover,
+                            width: SizeConfig.blockSizeHorizontal! * 100,
                           ),
                         ),
-                        Positioned.fill(
-                          child: Container(
-                            padding: const EdgeInsets.all(10.0),
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  purpleColor,
-                                  Colors.transparent,
-                                  purpleColor.withOpacity(0.6),
-                                  purpleColor,
-                                ],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                stops: const [0.01, 0.5, 0.8, 1],
-                              ),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Expanded(
-                                  child: Container(),
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      showDetails['name'],
-                                      style: header6BoldTextWhite(),
-                                    ),
-                                    Row(
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              liked = !liked;
-                                            });
-                                          },
-                                          child: Container(
-                                            padding: const EdgeInsets.only(
-                                                right: 10),
-                                            child: Image.asset(
-                                              liked == false
-                                                  ? 'images/icons/timer_white.png'
-                                                  : 'images/icons/timer_red.png',
-                                              width: SizeConfig
-                                                      .blockSizeHorizontal! *
-                                                  7,
-                                            ),
-                                          ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              favorited = !favorited;
-                                            });
-                                            updateFavorited();
-                                          },
-                                          child: Container(
-                                            padding: const EdgeInsets.only(
-                                                right: 10),
-                                            child: Image.asset(
-                                              favorited == false
-                                                  ? 'images/icons/heart_white.png'
-                                                  : 'images/icons/heart_red.png',
-                                              width: SizeConfig
-                                                      .blockSizeHorizontal! *
-                                                  7,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
+                        Container(
+                          padding: const EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                purpleColor,
+                                Colors.transparent,
+                                purpleColor.withOpacity(0.6),
+                                purpleColor,
                               ],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              stops: const [0.01, 0.5, 0.8, 1],
                             ),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(),
+                              ),
+                              Text(
+                                showDetails['name'],
+                                style: header6BoldTextWhite(),
+                              ),
+                            ],
                           ),
                         ),
                         CustomAppBar(
@@ -327,6 +275,47 @@ class ShowDetailsState extends State<ShowDetails> with WidgetsBindingObserver {
                           callback: (res) {
                             Navigator.pop(context);
                           },
+                        ),
+                        Positioned(
+                          bottom: 10,
+                          right: 20,
+                          child: Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    liked = !liked;
+                                  });
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.only(right: 10),
+                                  child: Image.asset(
+                                    liked == false
+                                        ? 'images/icons/timer_white.png'
+                                        : 'images/icons/timer_pink.png',
+                                    width: SizeConfig.blockSizeHorizontal! * 7,
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    favorited = !favorited;
+                                  });
+                                  updateFavorited();
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.only(right: 10),
+                                  child: Image.asset(
+                                    favorited == false
+                                        ? 'images/icons/heart_white.png'
+                                        : 'images/icons/heart_pink.png',
+                                    width: SizeConfig.blockSizeHorizontal! * 7,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
