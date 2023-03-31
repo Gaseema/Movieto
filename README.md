@@ -1,9 +1,21 @@
 # MovieTo
 
 ### Description
-The MovieTo app is a mobile application that allows users to keep track of their favorite TV shows. Users can search for TV shows by name, genre, rating, date of premiere, and status. They can view details of each show, including the name, crew, episodes/seasons, and an image gallery. The app also allows users to add shows to their watch schedule, mark shows as favorites, and comment on shows they have watched.
+The MovieTo app is a mobile application that allows users to keep track of their favorite TV shows. Users can search for TV shows by name or date of premiere, and status. They can view details of each show, including the name, crew, episodes/seasons, and an image gallery. The app also allows users to add shows to their watch schedule, mark shows as favorites, and comment on shows they have watched.
 
 ### Screenshots
+![alt text](https://github.com/Gaseema/Movieto/blob/master/images/screenshots/1.png?raw=true)
+![alt text](https://github.com/Gaseema/Movieto/blob/master/images/screenshots/2.png?raw=true)
+![alt text](https://github.com/Gaseema/Movieto/blob/master/images/screenshots/3.png?raw=true)
+![alt text](https://github.com/Gaseema/Movieto/blob/master/images/screenshots/4.png?raw=true)
+![alt text](https://github.com/Gaseema/Movieto/blob/master/images/screenshots/5.png?raw=true)
+![alt text](https://github.com/Gaseema/Movieto/blob/master/images/screenshots/6.png?raw=true)
+![alt text](https://github.com/Gaseema/Movieto/blob/master/images/screenshots/7.png?raw=true)
+![alt text](https://github.com/Gaseema/Movieto/blob/master/images/screenshots/8.png?raw=true)
+![alt text](https://github.com/Gaseema/Movieto/blob/master/images/screenshots/9.png?raw=true)
+![alt text](https://github.com/Gaseema/Movieto/blob/master/images/screenshots/10.png?raw=true)
+
+
 ### Installation
 To install the MovieTo app, follow these steps:
 1. Clone the repository from GitHub: git clone https://github.com/Gaseema/Movieto.git
