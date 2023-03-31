@@ -75,13 +75,14 @@ class DashboardState extends State<Dashboard> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Color.fromRGBO(17, 21, 52, 1),
+        color: const Color.fromRGBO(17, 21, 52, 1),
         child: Column(
           children: [
             activePage == 0
                 ? CustomAppBar(
                     title: null,
                     icon: null,
+                    textColor: 'white',
                     callback: (res) {
                       Navigator.pop(context);
                     },
@@ -118,6 +119,9 @@ class DashboardState extends State<Dashboard> with WidgetsBindingObserver {
                 onItemSelected: (value) {
                   print(globalUserData);
                   if (value == 2) {
+                    setState(() {
+                      loadingFav = true;
+                    });
                     dioRequest(
                       'post',
                       '/user/fetch/favorites',
@@ -125,6 +129,7 @@ class DashboardState extends State<Dashboard> with WidgetsBindingObserver {
                     ).then((val) {
                       setState(() {
                         favoriteList = val['favorites'];
+                        loadingFav = false;
                       });
                     });
                   }

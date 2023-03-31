@@ -10,8 +10,9 @@ import 'package:transparent_image/transparent_image.dart';
 
 // IP address
 String ipAddress = 'https://api.tvmaze.com';
-String ipAddressDB = 'http://localhost:8040';
+String ipAddressDB = 'http://192.168.27.245:8040';
 List favoriteList = [];
+bool loadingFav = false;
 
 // Vertical & horizontal percentage size
 class SizeConfig {
@@ -38,6 +39,7 @@ Map globalUserData = {};
 
 // Main colors
 Color pinkColor = const Color.fromRGBO(254, 1, 120, 1);
+Color purpleColor = const Color.fromRGBO(17, 21, 52, 1);
 
 ////////////////////////////////////////////////////////////////
 /// TEXT STYLES
@@ -165,6 +167,15 @@ TextStyle normalBoldTextLightBlack() {
     letterSpacing: .8,
     fontWeight: FontWeight.w600,
     color: Colors.black.withOpacity(0.4),
+  );
+}
+
+TextStyle normalBoldTextLightWhite() {
+  return GoogleFonts.lato(
+    fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
+    letterSpacing: .8,
+    fontWeight: FontWeight.w600,
+    color: Colors.white.withOpacity(0.4),
   );
 }
 
@@ -537,13 +548,13 @@ class TvShowCard extends StatelessWidget {
                         decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(20)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.blueGrey,
-                              blurRadius: 5,
-                              offset: Offset(0, 4),
-                            ),
-                          ],
+                          // boxShadow: [
+                          //   BoxShadow(
+                          //     color: Colors.blueGrey,
+                          //     blurRadius: 5,
+                          //     offset: Offset(0, 4),
+                          //   ),
+                          // ],
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20),

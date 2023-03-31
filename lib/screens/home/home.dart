@@ -156,7 +156,7 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
                             width: SizeConfig.blockSizeHorizontal! * 30,
                             child: Text(
                               show['name'],
-                              style: normalTextBlack(),
+                              style: normalTextWhite(),
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.center,
@@ -236,23 +236,23 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
                             children: [
                               Text(
                                 show['name'],
-                                style: normalBoldTextBlack(),
+                                style: normalBoldTextWhite(),
                               ),
                               Container(
                                 margin: const EdgeInsets.only(bottom: 10),
                                 child: Text(
                                   '($year)',
-                                  style: normalBoldTextLightBlack(),
+                                  style: normalBoldTextLightWhite(),
                                 ),
                               ),
                               Text(
                                 'Summary',
-                                style: smallTextLightBlack(),
+                                style: smallTextLightWhite(),
                               ),
                               Container(
                                 child: Text(
                                   summaryOutput,
-                                  style: normalTextBlack(),
+                                  style: normalTextWhite(),
                                   maxLines: 8,
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.left,
@@ -274,8 +274,8 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
           gradient: LinearGradient(
             colors: [
               Color.fromRGBO(20, 24, 57, 1),
-              Color.fromRGBO(25, 27, 65, 0.9),
-              Color.fromRGBO(25, 27, 65, 0.9),
+              Color.fromRGBO(25, 27, 65, 1),
+              Color.fromRGBO(25, 27, 65, 1),
               Color.fromRGBO(20, 24, 57, 1),
             ],
             begin: Alignment.topCenter,

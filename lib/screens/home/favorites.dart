@@ -70,23 +70,23 @@ class FavoritesState extends State<Favorites> with WidgetsBindingObserver {
                     children: [
                       Text(
                         show['showDetails']['name'],
-                        style: normalBoldTextBlack(),
+                        style: normalBoldTextWhite(),
                       ),
                       Container(
                         margin: const EdgeInsets.only(bottom: 10),
                         child: Text(
                           '($year)',
-                          style: normalBoldTextLightBlack(),
+                          style: normalBoldTextLightWhite(),
                         ),
                       ),
                       Text(
                         'Summary',
-                        style: smallTextLightBlack(),
+                        style: smallTextLightWhite(),
                       ),
                       Container(
                         child: Text(
                           summaryOutput,
-                          style: normalTextBlack(),
+                          style: normalTextWhite(),
                           maxLines: 8,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
@@ -103,11 +103,52 @@ class FavoritesState extends State<Favorites> with WidgetsBindingObserver {
     );
     return Scaffold(
       body: Container(
-        child: favoriteList.isEmpty
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color.fromRGBO(20, 24, 57, 1),
+              Color.fromRGBO(25, 27, 65, 1),
+              Color.fromRGBO(25, 27, 65, 1),
+              Color.fromRGBO(20, 24, 57, 1),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: [0.15, 0.5, 0.6, 1],
+          ),
+        ),
+        child: loadingFav == true
             ? Center(
-                child: Text('No data'),
+                child: SizedBox(
+                  height: 40,
+                  width: 40,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 3.5,
+                    color: pinkColor,
+                  ),
+                ),
               )
-            : favoriteListCard,
+            : favoriteList.isEmpty
+                ? Center(
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(
+                            bottom: 20,
+                            top: 20,
+                          ),
+                          child: Image.asset(
+                            'images/nodata.png',
+                            width: SizeConfig.blockSizeHorizontal! * 70,
+                          ),
+                        ),
+                        Text(
+                          'No data found. Enter something in the search bar',
+                          style: normalTextWhite(),
+                        )
+                      ],
+                    ),
+                  )
+                : favoriteListCard,
       ),
     );
   }

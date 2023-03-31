@@ -65,6 +65,7 @@ flutter:
 
     #Icons
     - images/icons/profile_black.png
+    - images/icons/backButtonWhite.png
     - images/icons/hide.png
     - images/icons/timer_white.png
     - images/icons/timer_red.png

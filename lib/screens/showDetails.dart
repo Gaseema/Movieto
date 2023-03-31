@@ -80,7 +80,11 @@ class ShowDetailsState extends State<ShowDetails> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     Widget storyLine = Container(
-      margin: const EdgeInsets.only(left: 20, right: 20),
+      margin: const EdgeInsets.only(
+        left: 20,
+        right: 20,
+        bottom: 40,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -88,11 +92,12 @@ class ShowDetailsState extends State<ShowDetails> with WidgetsBindingObserver {
             margin: const EdgeInsets.only(bottom: 15),
             child: Text(
               'Story Line',
-              style: header5BoldTextBlack(),
+              style: header5BoldTextWhite(),
             ),
           ),
           Text(
             convertStory(),
+            style: normalTextWhite(),
           ),
         ],
       ),
@@ -129,7 +134,7 @@ class ShowDetailsState extends State<ShowDetails> with WidgetsBindingObserver {
                       Container(
                         child: Text(
                           castFirstName,
-                          style: smallTextBlack(),
+                          style: smallTextWhite(),
                         ),
                       ),
                     ],
@@ -193,134 +198,150 @@ class ShowDetailsState extends State<ShowDetails> with WidgetsBindingObserver {
       ),
     );
     return Scaffold(
-      body: showDetails.isEmpty
-          ? const Center(
-              child: SizedBox(
-                height: 40,
-                width: 40,
-                child: CircularProgressIndicator(
-                  strokeWidth: 3.5,
-                  color: Colors.blue,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color.fromRGBO(20, 24, 57, 1),
+              Color.fromRGBO(25, 27, 65, 1),
+              Color.fromRGBO(25, 27, 65, 1),
+              Color.fromRGBO(20, 24, 57, 1),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: [0.15, 0.5, 0.6, 1],
+          ),
+        ),
+        child: showDetails.isEmpty
+            ? Center(
+                child: SizedBox(
+                  height: 40,
+                  width: 40,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 3.5,
+                    color: pinkColor,
+                  ),
                 ),
-              ),
-            )
-          : ListView(
-              children: [
-                Container(
-                  height: SizeConfig.blockSizeVertical! * 50,
-                  child: Stack(
-                    children: [
-                      Positioned.fill(
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.blueGrey,
-                                blurRadius: 5,
-                                offset: Offset(0, 4),
-                              ),
-                            ],
-                          ),
-                          child: FadeInImage.memoryNetwork(
-                            placeholder: kTransparentImage,
-                            image: loadImage(),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      Positioned.fill(
-                        child: Container(
-                          padding: const EdgeInsets.all(10.0),
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                Colors.black.withOpacity(0.5),
-                                Colors.transparent,
-                                Colors.transparent,
-                                Colors.black.withOpacity(0.5),
-                              ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              stops: const [0.15, 0.5, 0.6, 1],
+              )
+            : ListView(
+                children: [
+                  Container(
+                    height: SizeConfig.blockSizeVertical! * 50,
+                    child: Stack(
+                      children: [
+                        Positioned.fill(
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                            ),
+                            child: FadeInImage.memoryNetwork(
+                              placeholder: kTransparentImage,
+                              image: loadImage(),
+                              fit: BoxFit.cover,
                             ),
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Expanded(
-                                child: Container(),
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    showDetails['name'],
-                                    style: header6BoldTextWhite(),
-                                  ),
-                                  Row(
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            liked = !liked;
-                                          });
-                                        },
-                                        child: Container(
-                                          padding:
-                                              const EdgeInsets.only(right: 10),
-                                          child: Image.asset(
-                                            liked == false
-                                                ? 'images/icons/timer_white.png'
-                                                : 'images/icons/timer_red.png',
-                                            width: SizeConfig
-                                                    .blockSizeHorizontal! *
-                                                7,
-                                          ),
-                                        ),
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            favorited = !favorited;
-                                          });
-                                          updateFavorited();
-                                        },
-                                        child: Container(
-                                          padding:
-                                              const EdgeInsets.only(right: 10),
-                                          child: Image.asset(
-                                            favorited == false
-                                                ? 'images/icons/heart_white.png'
-                                                : 'images/icons/heart_red.png',
-                                            width: SizeConfig
-                                                    .blockSizeHorizontal! *
-                                                7,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  )
+                        ),
+                        Positioned.fill(
+                          child: Container(
+                            padding: const EdgeInsets.all(10.0),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  purpleColor,
+                                  Colors.transparent,
+                                  purpleColor.withOpacity(0.6),
+                                  purpleColor,
                                 ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                stops: const [0.01, 0.5, 0.8, 1],
                               ),
-                            ],
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Expanded(
+                                  child: Container(),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      showDetails['name'],
+                                      style: header6BoldTextWhite(),
+                                    ),
+                                    Row(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              liked = !liked;
+                                            });
+                                          },
+                                          child: Container(
+                                            padding: const EdgeInsets.only(
+                                                right: 10),
+                                            child: Image.asset(
+                                              liked == false
+                                                  ? 'images/icons/timer_white.png'
+                                                  : 'images/icons/timer_red.png',
+                                              width: SizeConfig
+                                                      .blockSizeHorizontal! *
+                                                  7,
+                                            ),
+                                          ),
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              favorited = !favorited;
+                                            });
+                                            updateFavorited();
+                                          },
+                                          child: Container(
+                                            padding: const EdgeInsets.only(
+                                                right: 10),
+                                            child: Image.asset(
+                                              favorited == false
+                                                  ? 'images/icons/heart_white.png'
+                                                  : 'images/icons/heart_red.png',
+                                              width: SizeConfig
+                                                      .blockSizeHorizontal! *
+                                                  7,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                        CustomAppBar(
+                          title: 'Show Details',
+                          textColor: 'white',
+                          icon: null,
+                          callback: (res) {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                casts,
-                seasons,
-                Container(
-                  margin: const EdgeInsets.only(
-                    top: 20,
+                  casts,
+                  seasons,
+                  Container(
+                    margin: const EdgeInsets.only(
+                      top: 20,
+                    ),
+                    child: storyLine,
                   ),
-                  child: storyLine,
-                ),
-              ],
-            ),
+                ],
+              ),
+      ),
     );
   }
 }
